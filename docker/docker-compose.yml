@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   ml-service:
     build:
@@ -6,27 +6,13 @@ services:
       dockerfile: docker/Dockerfile
     ports:
       - "5000:5000"
-    volumes:
-      - ../model.joblib:/app/model.joblib
-    networks:
-      - ml-network
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:latest
     ports:
       - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - ml-network
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     ports:
       - "3000:3000"
-    networks:
-      - ml-network
-
-networks:
-  ml-network:
-    driver: bridge
