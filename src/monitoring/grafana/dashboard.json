@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+      "title": "ML Pipeline Metrics",
+      "panels": [
+        {
+          "title": "Total Predictions",
+          "type": "graph",
+          "targets": [
+            {
+              "expr": "predictions_total",
+              "legendFormat": "Predictions"
+            }
+          ]
+        }
+      ]
+    }
+  }
