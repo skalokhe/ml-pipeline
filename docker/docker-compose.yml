@@ -7,6 +7,7 @@ services:
     ports:
       - "5000:5000"
 
+
   prometheus:
     image: prom/prometheus
     ports:
