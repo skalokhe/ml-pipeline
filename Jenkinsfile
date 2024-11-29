@@ -15,6 +15,11 @@ pipeline {
                 echo "completed installation of the dependencies"
             }
         }
+        stage('Run Tests') {
+            steps {
+                sh 'python -m pytest tests/ -v'
+            }
+        }
         stage('Test'){
             steps{
                 sh 'pytest'
