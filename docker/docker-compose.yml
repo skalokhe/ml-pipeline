@@ -1,12 +1,31 @@
 version: '3'
 services:
   ml-service:
-    image: python:3.8-slim
-    working_dir: /app
-    command: >
-      bash -c "pip install flask numpy scikit-learn joblib prometheus_client &&
-               python src/deployment/app.py"
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: python3 src/deployment/app.py
     ports:
       - "5000:5000"
     volumes:
       - ../:/app
+    networks:
+      - ml-network
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - ml-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - ml-network
+
+networks:
+  ml-network:
+    driver: bridge
