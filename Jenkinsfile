@@ -2,6 +2,22 @@ pipeline {
     agent any
     
     stages {
+        stage('checkout')
+        steps {
+
+            echo "git clone is complete"
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh python3 --version
+                sh pip3 --version
+                echo "completed installation of the dependencies"
+            }
+        }
+        stage('Test')
+        {
+            sh 'pytest'
+        }
         stage('Setup') {
             steps {
                 sh '''

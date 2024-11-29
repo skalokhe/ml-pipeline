@@ -1,6 +1,8 @@
 version: '3.8'
 services:
   ml-service:
+    container_name: ml-service
+    image: ml-service:latest
     build:
       context: ..
       dockerfile: docker/Dockerfile
