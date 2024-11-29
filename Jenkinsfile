@@ -10,8 +10,8 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh python3 --version
-                sh pip3 --version
+                sh 'python3 --version'
+                sh 'pip3 --version'
                 echo "completed installation of the dependencies"
             }
         }
