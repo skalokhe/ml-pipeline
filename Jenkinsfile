@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('checkout')
+        stage('checkout'){
             steps {
 
             echo "git clone is complete"
@@ -15,12 +15,12 @@ pipeline {
                 echo "completed installation of the dependencies"
             }
         }
-        stage('Test')
+        stage('Test'){
             steps{
                 sh 'pytest'
             }
-
-        
+        }
+    
         stage('Setup') {
             steps {
                 sh '''
