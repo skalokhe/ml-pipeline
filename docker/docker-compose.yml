@@ -6,24 +6,23 @@ services:
       dockerfile: docker/Dockerfile
     ports:
       - "5000:5000"
-
-
+    networks:
+      - ml-network
+    
   prometheus:
     image: prom/prometheus
     ports:
       - "9090:9090"
-    volumes:
-      - ../src/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - ml-network
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
-    volumes:
-      - ../src/monitoring/grafana/dashboard.json:/etc/grafana/provisioning/dashboards/dashboard.json
-      - ../src/monitoring/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_SECURITY_ADMIN_USER=admin
-    depends_on:
-      - prometheus
+    networks:
+      - ml-network
+
+networks:
+  ml-network:
+    driver: bridge
