@@ -3,7 +3,9 @@ services:
   ml-service:
     image: python:3.8-slim
     working_dir: /app
-    command: python src/deployment/app.py
+    command: >
+      bash -c "pip install flask numpy scikit-learn joblib prometheus_client &&
+               python src/deployment/app.py"
     ports:
       - "5000:5000"
     volumes:
