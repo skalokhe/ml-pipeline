@@ -3,9 +3,10 @@ pipeline {
     
     stages {
         stage('checkout')
-        steps {
+            steps {
 
             echo "git clone is complete"
+            }
         }
         stage('Install Dependencies') {
             steps {
@@ -15,9 +16,11 @@ pipeline {
             }
         }
         stage('Test')
-        {
-            sh 'pytest'
-        }
+            steps{
+                sh 'pytest'
+            }
+
+        
         stage('Setup') {
             steps {
                 sh '''
