@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GRAFANA_API_KEY = credentials('grafana-credentials')
+        GRAFANA_CREDENTIALS = credentials('grafana-credentials')
         GRAFANA_URL = 'http://localhost:3000'
     }
     stages {
@@ -48,7 +48,7 @@ pipeline {
                     // Add Prometheus data source using basic auth
                     sh """
                         curl -X POST \
-                        -u ${GRAFANA_CREDS_USR}:${GRAFANA_CREDS_PSW} \
+                        -u '${GRAFANA_CREDENTIALS_USR}:${GRAFANA_CREDENTIALS_PSW}' \
                         -H 'Content-Type: application/json' \
                         ${GRAFANA_URL}/api/datasources \
                         -d '{
@@ -63,7 +63,7 @@ pipeline {
                     // Deploy ML metrics dashboard using basic auth
                     sh """
                         curl -X POST \
-                        -u ${GRAFANA_CREDS_USR}:${GRAFANA_CREDS_PSW} \
+                        -u '${GRAFANA_CREDENTIALS_USR}:${GRAFANA_CREDENTIALS_PSW}' \
                         -H 'Content-Type: application/json' \
                         ${GRAFANA_URL}/api/dashboards/db \
                         -d '{
