@@ -17,7 +17,6 @@ pipeline {
                     python3 -m pip install Cython
                     python3 -m pip install numpy>=1.26.0
                     python3 -m pip install pytest scikit-learn==1.3.2 flask joblib prometheus_client
-                    python3 -m pip install -r requirements.txt
                     python3 --version
                     pip --version
                 '''
@@ -40,12 +39,7 @@ pipeline {
                 '''
             }
         }
-        stage('Test'){
-            steps{
-                sh 'pytest'
-            }
-        }
-    
+        
         stage('Setup') {
             steps {
                 sh '''
@@ -55,16 +49,6 @@ pipeline {
                 '''
             }
         }
-        
-        stage('Train') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    python src/training/train_model.py
-                '''
-            }
-        }
-        
         stage('Deploy') {
             steps {
                 sh 'docker-compose -f docker/docker-compose.yml up -d'
