@@ -10,8 +10,14 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'python3 --version'
-                sh 'pip3 --version'
+                sh '''
+                    python -m venv venv
+                    . venv/bin/activate
+                    pip install pytest
+                    pip install -r requirements.txt
+                    python3 --version
+                    pip3 --versio
+                '''
                 echo "completed installation of the dependencies"
             }
         }
