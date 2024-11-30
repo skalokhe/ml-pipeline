@@ -23,6 +23,14 @@ pipeline {
                 echo "completed installation of the dependencies"
             }
         }
+        stage('Train Model') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python3 src/training/train_model.py
+                '''
+            }
+        }
         stage('Run Tests') {
             steps {
                 sh '''
