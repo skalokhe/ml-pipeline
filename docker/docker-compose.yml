@@ -21,9 +21,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SERVER_ROOT_URL=http://localhost:3000
-      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
       - grafana-storage:/var/lib/grafana
 
 volumes:
