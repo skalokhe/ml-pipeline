@@ -11,12 +11,12 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                    python -m venv venv
+                    python3 -m venv venv
                     . venv/bin/activate
                     pip install pytest
                     pip install -r requirements.txt
                     python3 --version
-                    pip3 --versio
+                    pip --version
                 '''
                 echo "completed installation of the dependencies"
             }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                     . venv/bin/activate
-                    python -m pytest tests/ -v
+                    python3 -m pytest tests/ -v
                 '''
             }
         }
@@ -57,6 +57,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker-compose -f docker/docker-compose.yml up -d'
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                cleanWs()
+                sh 'docker system prune -af'
             }
         }
     }
