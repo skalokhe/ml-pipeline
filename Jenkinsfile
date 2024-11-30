@@ -1,13 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        DOCKER_REGISTRY = "your-registry"
-        IMAGE_NAME = "ml-service"
-        IMAGE_TAG = "${BUILD_NUMBER}"
-        DOCKER_CREDENTIALS = credentials('docker-cred-id')
-        KUBECONFIG = credentials('kubeconfig-id')
-    }
     stages {
         stage('checkout'){
             steps {
@@ -61,7 +54,6 @@ pipeline {
                 sh 'docker-compose -f docker/docker-compose.yml up -d'
             }
         }
-        
         stage('Cleanup') {
             steps {
                 cleanWs()
