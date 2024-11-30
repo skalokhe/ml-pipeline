@@ -61,29 +61,7 @@ pipeline {
                 sh 'docker-compose -f docker/docker-compose.yml up -d'
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -f docker/Dockerfile ."
-            }
-        }
         
-        stage('Push Docker Image') {
-            steps {
-                sh '''
-                    echo $DOCKER_CREDENTIALS_PSW | docker login $DOCKER_REGISTRY -u $DOCKER_CREDENTIALS_USR --password-stdin
-                    docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
-                '''
-            }
-        }
-        
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                    kubectl --kubeconfig=$KUBECONFIG apply -f k8s/deployment.yaml
-                    kubectl --kubeconfig=$KUBECONFIG set image deployment/ml-service ml-service=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
-                '''
-            }
-        }
         stage('Cleanup') {
             steps {
                 cleanWs()
