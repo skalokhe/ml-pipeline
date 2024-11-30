@@ -15,7 +15,7 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pip install --upgrade pip setuptools wheel
                     python3 -m pip install Cython
-                    python3 -m pip install numpy>=1.26.0
+                    python3 -m pip install numpy>=1.26.0 pandas
                     python3 -m pip install pytest scikit-learn==1.3.2 flask joblib prometheus_client
                     python3 --version
                     pip --version
