@@ -11,12 +11,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                    sudo apt-get update
-                    sudo apt-get install -y python3-numpy python3-scipy
                     python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pip install --upgrade pip wheel setuptools
-                    python3 -m pip install pytest scikit-learn==1.3.2 flask joblib prometheus_client
+                    python3 -m pip install --no-cache-dir numpy==1.24.3
+                    python3 -m pip install --no-cache-dir pytest scikit-learn==1.3.2 flask joblib prometheus_client
                     python3 -m pip install -r requirements.txt
                     python3 --version
                     pip --version
