@@ -13,9 +13,9 @@ pipeline {
                 sh '''
                     python3 -m venv venv
                     . venv/bin/activate
-                    python3 -m pip install --upgrade pip wheel setuptools
-                    python3 -m pip install --no-cache-dir numpy==1.24.3
-                    python3 -m pip install --no-cache-dir pytest scikit-learn==1.3.2 flask joblib prometheus_client
+                    python3 -m pip install --upgrade "pip<24.0" "setuptools<69.0" wheel
+                    python3 -m pip install --no-build-isolation numpy==1.24.3
+                    python3 -m pip install --no-build-isolation pytest scikit-learn==1.3.2 flask joblib prometheus_client
                     python3 -m pip install -r requirements.txt
                     python3 --version
                     pip --version
